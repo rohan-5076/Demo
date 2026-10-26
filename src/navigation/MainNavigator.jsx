@@ -1,5 +1,5 @@
-import React from 'react';
-import DrawerNavigator from './DrawerNavigator';
+import React from "react";
+import DrawerNavigator from "./DrawerNavigator";
 
 const MainNavigator = () => {
   return <DrawerNavigator />;

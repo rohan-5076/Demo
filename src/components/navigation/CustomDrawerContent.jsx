@@ -1,34 +1,40 @@
 import React from "react";
-import {
-  DrawerContentScrollView,
-  DrawerItemList,
-} from "@react-navigation/drawer";
-import { Text, TouchableOpacity, View , Alert} from "react-native";
+import { DrawerContentScrollView } from "@react-navigation/drawer";
+import { Text, TouchableOpacity, View, Alert } from "react-native";
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
 
 import DrawerItem from "./DrawerItem";
+import {
+  ROUTE_FORMS,
+  ROUTE_HELP,
+  ROUTE_HOME,
+  ROUTE_MAIN_TABS,
+  ROUTE_SETTINGS,
+} from "../../navigation/RoutePathConstant";
 
 const DRAWER_ITEMS = [
   {
     label: "Home",
     icon: "home-outline",
-    route: "MainTabs",
+    route: ROUTE_MAIN_TABS,
+    // Always land on the Home tab, not whichever tab was last open
+    params: { screen: ROUTE_HOME },
   },
   {
-    label: "Notifications",
-    icon: "bell-outline",
-    route: "Notifications",
+    label: "Forms",
+    icon: "file-document-edit-outline",
+    route: ROUTE_FORMS,
     badge: 5,
   },
   {
     label: "Settings",
     icon: "cog-outline",
-    route: "Settings",
+    route: ROUTE_SETTINGS,
   },
   {
     label: "Help & Support",
     icon: "help-circle-outline",
-    route: "Help",
+    route: ROUTE_HELP,
     badge: 1,
   },
 ];
@@ -38,13 +44,19 @@ const CustomDrawerContent = (props) => {
 
   const activeRoute = state.routeNames[state.index];
 
-  const handleNavigation = (route) => {
-    navigation.navigate(route);
+  const handleNavigation = (item) => {
+    if (item.route === activeRoute && !item.params) {
+      navigation.closeDrawer();
+      return;
+    }
+    navigation.navigate(item.route, item.params);
   };
 
   const handleLogout = () => {
-    Alert.alert("Hello", "This is an alert message");
-    console.log("Logout pressed");
+    Alert.alert("Log out", "Are you sure you want to log out?", [
+      { text: "Cancel", style: "cancel" },
+      { text: "Log out", style: "destructive", onPress: () => navigation.closeDrawer() },
+    ]);
   };
 
   return (
@@ -107,7 +119,7 @@ const CustomDrawerContent = (props) => {
             icon={item.icon}
             badge={item.badge}
             active={activeRoute === item.route}
-            onPress={() => handleNavigation(item.route)}
+            onPress={() => handleNavigation(item)}
           />
         ))}
       </DrawerContentScrollView>
