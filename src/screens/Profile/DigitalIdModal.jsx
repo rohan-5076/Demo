@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ScrollView,
   StyleSheet,
-  Platform,
 } from "react-native";
 import { Feather, MaterialCommunityIcons } from "@expo/vector-icons";
 import { COLORS } from "../../navigation/theme";

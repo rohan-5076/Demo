@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Modal,
   View,
@@ -15,26 +15,13 @@ import { COLORS } from "../../navigation/theme";
 
 const EditProfileModal = ({ visible, onClose, initialData, onSave }) => {
   const [formData, setFormData] = useState({
-    name: "",
-    role: "",
-    department: "",
-    email: "",
-    phone: "",
-    location: "",
+    name: initialData?.name || "",
+    role: initialData?.role || "",
+    department: initialData?.department || "",
+    email: initialData?.email || "",
+    phone: initialData?.phone || "",
+    location: initialData?.location || "",
   });
-
-  useEffect(() => {
-    if (initialData) {
-      setFormData({
-        name: initialData.name || "",
-        role: initialData.role || "",
-        department: initialData.department || "",
-        email: initialData.email || "",
-        phone: initialData.phone || "",
-        location: initialData.location || "",
-      });
-    }
-  }, [initialData, visible]);
 
   const handleChange = (key, value) => {
     setFormData((prev) => ({ ...prev, [key]: value }));
