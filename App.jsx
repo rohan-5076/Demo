@@ -1,14 +1,19 @@
 import "./global.css";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import AppRoutes from './src/navigation/AppRoutes';
+import AppRoutes from "./src/navigation/AppRoutes";
+import FlashMessage from "react-native-flash-message";
 
 export default function App() {
   return (
-     <SafeAreaProvider>
-      {/* Light icons to sit on the blue app header */}
+    <SafeAreaProvider>
       <StatusBar style="light" />
       <AppRoutes />
+      <FlashMessage
+        position="top"
+        statusBarHeight={0}
+        style={{ paddingTop: 50 }}
+      />
     </SafeAreaProvider>
   );
 }

@@ -10,6 +10,7 @@ import {
   ROUTE_HOME,
   ROUTE_MAIN_TABS,
   ROUTE_SETTINGS,
+  ROUTE_TASKS,
 } from "../../navigation/RoutePathConstant";
 
 const DRAWER_ITEMS = [
@@ -25,6 +26,11 @@ const DRAWER_ITEMS = [
     icon: "file-document-edit-outline",
     route: ROUTE_FORMS,
     badge: 5,
+  },
+  {
+    label: "Tasks",
+    icon: "clipboard-check-outline",
+    route: ROUTE_TASKS,
   },
   {
     label: "Settings",

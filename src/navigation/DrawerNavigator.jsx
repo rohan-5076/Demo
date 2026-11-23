@@ -3,11 +3,11 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 
 import BottomTabNavigator from "./BottomTabNavigator";
-import SettingsScreen from "../screens/Settings/SettingsScreen";
 import HelpScreen from "../screens/Help/HelpScreen";
 import CustomDrawerContent from "../components/navigation/CustomDrawerContent";
 import Header from "../components/common/Header";
 import FormsStackNavigator from "./MainStackNavigator/FormsStackNavigator";
+import SettingsStackNavigator from "./MainStackNavigator/SettingsStackNavigator";
 import {
   ROUTE_FORMS,
   ROUTE_FORMS_HOME,
@@ -15,7 +15,12 @@ import {
   ROUTE_HOME,
   ROUTE_MAIN_TABS,
   ROUTE_SETTINGS,
+  ROUTE_SETTINGS_HOME,
+  ROUTE_TASKS,
+  ROUTE_TASKS_HOME,
 } from "./RoutePathConstant";
+import TasksScreen from "../screens/Tasks/TasksScreen";
+import { TaskStackNavigator } from "./MainStackNavigator/TasksStackNavigator";
 
 const Drawer = createDrawerNavigator();
 
@@ -52,20 +57,40 @@ const DrawerNavigator = () => {
           const focused = getFocusedRouteNameFromRoute(route) ?? ROUTE_FORMS_HOME;
           return {
             title: "Forms",
-            // The forms stack renders its own header (with a back button on nested screens)
             headerShown: false,
-            // Reopening Forms from the drawer always starts at the forms list
             popToTopOnBlur: true,
-            // Avoid clashing with the swipe-back gesture on nested form screens
             swipeEnabled: focused === ROUTE_FORMS_HOME,
           };
         }}
       />
 
+
+
+      <Drawer.Screen
+        name={ROUTE_TASKS}
+        component={TaskStackNavigator}
+        options={({ route }) => {
+          const focused = getFocusedRouteNameFromRoute(route) ?? ROUTE_TASKS_HOME;
+          return {
+            title: "Tasks",
+            headerShown: false,
+            popToTopOnBlur: true,
+            swipeEnabled: focused === ROUTE_TASKS_HOME,
+          };
+        }}
+      />
       <Drawer.Screen
         name={ROUTE_SETTINGS}
-        component={SettingsScreen}
-        options={{ title: "Settings" }}
+        component={SettingsStackNavigator}
+        options={({ route }) => {
+          const focused = getFocusedRouteNameFromRoute(route) ?? ROUTE_SETTINGS_HOME;
+          return {
+            title: "Setting",
+            headerShown: false,
+            popToTopOnBlur: true,
+            swipeEnabled: focused === ROUTE_SETTINGS_HOME,
+          };
+        }}
       />
 
       <Drawer.Screen
